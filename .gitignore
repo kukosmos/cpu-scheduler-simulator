@@ -1,0 +1,6 @@
+# compiled file
+run
+*.o
+
+# build path
+_build
