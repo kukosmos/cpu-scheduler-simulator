@@ -3,7 +3,7 @@ CFLAGS = -g -lpthread
 TARGET = run
 
 SRC = src
-ALGOSRC = src/algorithm
+ALGOSRC = $(SRC)/algorithm
 BUILD = _build
 
 MAIN = $(SRC)/main.c
