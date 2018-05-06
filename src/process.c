@@ -28,7 +28,7 @@ Process * create_process (unsigned int pid) {
     
     p->arrival_time = rand() % MAX_ARRIVAL_TIME;
     p->cpu_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
-    p->remain_time = p->cpu_burst_time;
+    p->cpu_remain_time = p->cpu_burst_time;
 
     p->io_start_time = rand() % (p->cpu_burst_time - 1) + 1;    // io start time can have value from 1 to cpu burst time - 1
     p->io_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
@@ -40,8 +40,8 @@ Process * create_process (unsigned int pid) {
 }
 
 int run (Process * this) {
-    this->remain_time = this->remain_time - 1;
-    return this->remain_time == 0;
+    this->cpu_remain_time = this->cpu_remain_time - 1;
+    return this->cpu_remain_time == 0;
 }
 
 int io (Process * this) {
