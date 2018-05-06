@@ -1,9 +1,12 @@
 #ifndef __CLOCK_H
 #define __CLOCK_H
 
+#include <pthread.h>
+
 struct __clock {
     int state;
     unsigned int clk;
+    ptrhead_t tid;
 };
 
 typedef struct __clock Clock;
