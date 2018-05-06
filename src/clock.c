@@ -52,7 +52,7 @@ void start_clock (Clock * this) {
 
 void stop_clock (Clock * this) {
     this->state = STOP;
-    pthread_join (this->tid);
+    pthread_join (this->tid, NULL);
 }
 
 void delete_clock (Clock * this) {

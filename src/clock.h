@@ -6,7 +6,7 @@
 struct __clock {
     int state;
     unsigned int clk;
-    ptrhead_t tid;
+    pthread_t tid;
 };
 
 typedef struct __clock Clock;
