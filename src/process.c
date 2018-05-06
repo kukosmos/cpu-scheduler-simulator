@@ -15,6 +15,12 @@
 #define MIN_BURST_TIME 1
 #define MAX_BURST_TIME 20
 
+/* priority can have value
+ * from 0
+ * to MAX_PRIORITY - 1
+ */
+#define MAX_PRIORITY 5
+
 Process * create_process (unsigned int pid) {
     Process * p = (Process *) malloc (sizeof (Process));
 
@@ -27,6 +33,8 @@ Process * create_process (unsigned int pid) {
     p->io_start_time = rand() % (p->cpu_burst_time - 1) + 1;    // io start time can have value from 1 to cpu burst time - 1
     p->io_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
     p->io_remain_time = p->io_burst_time;
+
+    p->priority = rand() % (MAX_PRIORITY);
 
     return p;
 }

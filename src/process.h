@@ -11,6 +11,8 @@ struct __process {
     unsigned int io_start_time;
     unsigned int io_burst_time;
     unsigned int io_remain_time;
+
+    unsigned int priority;
 };
 
 typedef struct __process Process;
