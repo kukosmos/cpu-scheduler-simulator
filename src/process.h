@@ -6,7 +6,7 @@ struct __process {
 
     unsigned int arrival_time;
     unsigned int cpu_burst_time;
-    unsigned int remain_time;
+    unsigned int cpu_remain_time;
 
     unsigned int io_start_time;
     unsigned int io_burst_time;
@@ -22,13 +22,13 @@ typedef struct __process Process;
  */
 Process * create_process (unsigned int pid);
 
-/* decrease remain_time by 1
- * return TRUE when remain_time becomes 0
+/* decrease cpu remain time by 1
+ * return TRUE when cpu remain time becomes 0
  */
 int run (Process * process);
 
-/* decrease io_remain_time by 1
- * return TRUE when io_remain_time becoms 0
+/* decrease io remain time by 1
+ * return TRUE when io remain time becoms 0
  */
 int io (Process * process);
 
