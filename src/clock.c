@@ -1,4 +1,3 @@
-#include <pthread.h>
 #include <stdlib.h>
 
 #include "clock.h"
@@ -48,11 +47,12 @@ void start_clock (Clock * this) {
 
     this->state = RUNNING;
     pthread_create (&tid, NULL, clocking, this);    // start clocking thread
-    pthread_detach (tid);
+    this->tid = tid;
 }
 
 void stop_clock (Clock * this) {
     this->state = STOP;
+    pthread_join (this->tid);
 }
 
 void delete_clock (Clock * this) {
