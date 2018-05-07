@@ -106,7 +106,7 @@ void create_processes (Job_scheduler * this, int n) {
     if (this->queue->head != NULL) {
         delete_nodes (this->queue->front);
     }
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i <= n; i++) {
         Process * p = create_process (i);
         js_enqueue (this->queue, p);
     }
