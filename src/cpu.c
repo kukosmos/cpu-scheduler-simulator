@@ -15,17 +15,19 @@ void * executing (void * arg) {
         while (prev == get_time (this->clk)) {
             // op_op    // busy waiting
         }
+        prev = get_time (this->clk);
         if (this->process == NULL) {    // idle
             write (this->record, 0);
         } else {
-            run (this->process);
             write (this->record, this->process->pid);
+            if (run (this->process)) {
+                this->process = NULL;
+            }
             if (this->process->io_start_time == get_time (this->clk)) {
                 start_io (this->io, this->process);
                 this->process = NULL;
             }
         }
-        prev = get_time (this->clk);
     }
 }
 
