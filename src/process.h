@@ -18,6 +18,7 @@ struct __process {
 typedef struct __process Process;
 
 /* create new process with pid = pid
+ * pid can have value from 1 (0 means idle)
  * you SHOULD call srand before call create_process
  */
 Process * create_process (unsigned int pid);

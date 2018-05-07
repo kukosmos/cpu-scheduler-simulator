@@ -22,6 +22,9 @@
 #define MAX_PRIORITY 5
 
 Process * create_process (unsigned int pid) {
+    if (pid == 0) {
+        return NULL;
+    }
     Process * p = (Process *) malloc (sizeof (Process));
 
     p->pid = pid;
