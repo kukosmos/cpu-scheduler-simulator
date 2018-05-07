@@ -56,6 +56,10 @@ void delete_cpu_scheduler (CPU_scheduler * this) {
     free (this);
 }
 
+void register_cpu (CPU_scheduler * this, CPU * cpu) {
+    this->cpu = cpu;
+}
+
 void new_process (CPU_scheduler * this, Process * proc) {
     this->enqueue (this->queue, proc);
 }

@@ -5,12 +5,14 @@
 
 #include "clock.h"
 #include "process.h"
+#include "cpu.h"
 
 struct __cpu_scheduler {
     char * algo;
     int state;
     Clock * clk;
     void * queue;
+    CPU * cpu;
     void (* enqueue) (void * queue, Process * process);
     void * (* scheduling) (void * arg);
     pthread_t tid;
@@ -33,6 +35,10 @@ CPU_scheduler * create_cpu_scheduler (char * algorithm, Clock * clock);
 /* delete cpu scheduler
  */
 void delete_cpu_scheduler (CPU_scheduler * cpu_scheduler);
+
+/* register cpu
+ */
+void register_cpu (CPU_scheduler * cpu_scheduler, CPU * cpu);
 
 /* add new process to queue
  */
