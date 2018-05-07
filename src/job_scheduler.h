@@ -41,7 +41,7 @@ void delete_job_scheduler (Job_scheduler * job_scheduler);
 
 /* register cpu scheduler to job scheduler
  */
-void register_cpu_scheduler (Job_scheduler * job_scheduler, CPU_scheduler * cpu_scheduler);
+void js_register_cpu_scheduler (Job_scheduler * job_scheduler, CPU_scheduler * cpu_scheduler);
 
 /* create n processes
  */

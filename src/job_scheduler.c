@@ -98,7 +98,7 @@ void delete_job_scheduler (Job_scheduler * this) {
     free (this);
 }
 
-void register_cpu_scheduler (Job_scheduler * this, CPU_scheduler * cs) {
+void js_register_cpu_scheduler (Job_scheduler * this, CPU_scheduler * cs) {
     this->cs = cs;
 }
 

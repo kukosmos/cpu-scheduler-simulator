@@ -23,8 +23,8 @@ void * executing (void * arg) {
             if (run (this->process)) {
                 this->process = NULL;
             }
-            if (this->process->io_start_time == get_time (this->clk)) {
-                start_io (this->io, this->process);
+            if (this->process->io_start_time == get_time (this->clk) + 1) {
+                io_request (this->io, this->process);
                 this->process = NULL;
             }
         }

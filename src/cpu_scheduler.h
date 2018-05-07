@@ -18,7 +18,11 @@ struct __cpu_scheduler {
     pthread_t tid;
 };
 
+// due to cyclic inclustion
+#ifndef __DEF_TYPE_CPU_SCHEDULER
+#define __DEF_TYPE_CPU_SCHEDULER
 typedef struct __cpu_scheduler CPU_scheduler;
+#endif
 
 /* create cpu scheduler
  * with algorithm 'algo'
