@@ -24,7 +24,7 @@ void enqueue (QUEUE * queue, Process * p) {
     }
 }
 
-Process * dequeue (QUEUE * queue) {
+Process * io_dequeue (QUEUE * queue) {
     NODE * del = queue->head;
     Process * p = del->process;
     queue->head = queue->head->next;
@@ -50,7 +50,7 @@ void * ioing (void * arg) {
             continue;
         }
         if (p == NULL) {
-            p = dequeue (this->queue);
+            p = io_dequeue (this->queue);
         }
         write (this->record, p->pid);
         if (io (p)) {
