@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "process.h"
 #include "clock.h"
@@ -9,6 +11,8 @@
 
 int main (int argc, char ** argv) {
     printf("KOSMOS PROJECT\nCPU Scheduler Simulator\n");
+
+    srand (time (NULL));
 
     Clock * clk = create_clock ();
     Job_scheduler * js = create_job_scheduler (clk);
