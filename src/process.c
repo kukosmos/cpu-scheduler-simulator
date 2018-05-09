@@ -28,14 +28,16 @@ Process * create_process (unsigned int pid) {
     Process * p = (Process *) malloc (sizeof (Process));
 
     p->pid = pid;
-    
+
     p->arrival_time = rand() % MAX_ARRIVAL_TIME;
     p->cpu_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
     p->cpu_remain_time = p->cpu_burst_time;
 
-    p->io_start_time = rand() % (p->cpu_burst_time - 1) + 1;    // io start time can have value from 1 to cpu burst time - 1
-    p->io_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
-    p->io_remain_time = p->io_burst_time;
+    if (p->cpu_burst_time > 1) {
+        p->io_start_time = rand() % (p->cpu_burst_time - 1) + 1;    // io start time can have value from 1 to cpu burst time - 1
+        p->io_burst_time = rand() % (MAX_BURST_TIME - MIN_BURST_TIME) + MIN_BURST_TIME;
+        p->io_remain_time = p->io_burst_time;
+    }
 
     p->priority = rand() % (MAX_PRIORITY);
 
