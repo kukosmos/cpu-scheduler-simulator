@@ -37,7 +37,7 @@ void js_enqueue (QUEUE * queue, Process * p) {
     } else {
         NODE * t = queue->front;
         NODE * bf = NULL;
-        while (t->p->arrival_time <= p->arrival_time && t != NULL) {
+        while (t != NULL && t->p->arrival_time <= p->arrival_time) {
             bf = t;
             t = t->next;
         }
@@ -105,7 +105,7 @@ void js_register_cpu_scheduler (Job_scheduler * this, CPU_scheduler * cs) {
 }
 
 void create_processes (Job_scheduler * this, int n) {
-    if (this->queue->head != NULL) {
+    if (this->queue->front != NULL) {
         delete_nodes (this->queue->front);
     }
     for (int i = 1; i <= n; i++) {
@@ -142,6 +142,7 @@ void print_processes (Job_scheduler * this) {
         Process * p = t->p;
         printf("| %3u | %12u | %14u | %13u | %13u | %8u |\n", p->pid, p->arrival_time, p->cpu_burst_time, p->io_start_time, p->io_burst_time, p->priority);
         printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
+        t = t->next;
     }
 }
 
