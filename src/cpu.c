@@ -22,8 +22,9 @@ void * executing (void * arg) {
             write (this->record, this->process->pid);
             if (run (this->process)) {
                 this->process = NULL;
+                continue;
             }
-            if (this->process->io_start_time == get_time (this->clk) + 1) {
+            if (this->process->io_start_time == this->process->cpu_burst_time - this->process->cpu_remain_time) {
                 io_request (this->io, this->process);
                 this->process = NULL;
             }
