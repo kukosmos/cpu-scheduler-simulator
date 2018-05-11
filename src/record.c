@@ -54,10 +54,15 @@ void write (Record * this, int pid) {
 void show_gantt_chart (Record * this) {
     NODE * temp = this->head;
     int time = 0;
+    printf("0----+----+----+----+----5----+----+----+----+----+\n");
     while (temp != NULL) {
-        printf("%c %2d ", time % 5 == 0 ? time % 10 + '0' : '|', temp->pid);
+        printf("| %2d ", temp->pid);
         temp = temp->next;
         time++;
+        if (!(time % 10)) {
+            printf("|\n");
+            printf("0----+----+----+----+----5----+----+----+----+----+\n");
+        }
     }
     printf("|\n");
 }
