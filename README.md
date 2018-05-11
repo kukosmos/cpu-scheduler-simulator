@@ -1,7 +1,7 @@
 # CPU Scheduler Simulator
 Korea Univ. Operating System Term Project
 
-## Support CPU Scheduling Algorithm
+## Supported CPU Scheduling Algorithm
 * First Come First Served
 
 ## Build
