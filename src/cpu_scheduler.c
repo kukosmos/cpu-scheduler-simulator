@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "cpu_scheduler.h"
 
@@ -11,9 +12,6 @@
 
 #define TRUE 1
 #define FALSE 0
-
-#define RUNNING 1
-#define STOP 0
 
 /* return TRUE when orig and targ are equal
  */
@@ -36,7 +34,8 @@ int str_compare (char * orig, char * targ) {
 CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
     CPU_scheduler * cs = (CPU_scheduler *) malloc (sizeof (CPU_scheduler));
 
-    cs->algo = algo;
+    cs->algo = (char *) malloc (sizeof (algo));
+    memcpy (cs->algo, algo, sizeof (algo));
     cs->clk = clock;
 
     if (str_compare ("fcfs", algo)) {
@@ -62,16 +61,4 @@ void register_cpu (CPU_scheduler * this, CPU * cpu) {
 
 void new_process (CPU_scheduler * this, Process * proc) {
     this->enqueue (this->queue, proc);
-}
-
-void start_cpu_scheduling (CPU_scheduler * this) {
-    pthread_t tid;
-    this->state = RUNNING;
-    pthread_create (&tid, NULL, this->scheduling, this);
-    this->tid = tid;
-}
-
-void stop_cpu_scheduling (CPU_scheduler * this) {
-    this->state = STOP;
-    pthread_join (this->tid, NULL);
 }
