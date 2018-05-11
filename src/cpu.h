@@ -1,20 +1,16 @@
 #ifndef __CPU_H
 #define __CPU_H
 
-#include <pthread.h>
-
 #include "clock.h"
 #include "process.h"
 #include "record.h"
 #include "io_device.h"
 
 struct __cpu {
-    int state;
     Clock * clk;
     Record * record;
     IO_device * io;
     Process * process;
-    pthread_t tid;
 };
 
 typedef struct __cpu CPU;
@@ -27,13 +23,9 @@ CPU * create_cpu (Clock * clock);
  */
 void delete_cpu (CPU * cpu);
 
-/* start running
+/* execute cpu for one clock
  */
-void start_running (CPU * cpu);
-
-/* stop running
- */
-void stop_running (CPU * cpu);
+void running (CPU * cpu);
 
 /* return if cpu has a process running
  */
