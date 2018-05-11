@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -lpthread
+CFLAGS = -g
 TARGET = run
 
 SRC = src

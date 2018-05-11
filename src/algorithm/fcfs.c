@@ -1,7 +1,6 @@
 #include <stdlib.h>
 
 #include "fcfs.h"
-#include "../cpu_scheduler.h"
 #include "../cpu.h"
 
 #define QUEUE struct __fcfs_queue
@@ -36,22 +35,15 @@ void * create_fcfs_queue () {
     return (void *) queue;
 }
 
-void * fcfs_scheduling (void * arg) {
-    CPU_scheduler * this = (CPU_scheduler *) arg;
-    int prev = -1;
-    while (this->state) {
-        while (prev == get_time (this->clk)) {
-            // no_op
-        }
-        prev = get_time (this->clk);
-        if (is_running (this->cpu)) {
-            continue;
-        }
-        if (fcfs_is_empty ((QUEUE *) this->queue)) {
-            continue;
-        }
-        execute (this->cpu, fcfs_dequeue ((QUEUE *) this->queue), NULL);
+void fcfs_scheduling (CPU_scheduler * this) {
+    if (is_running (this->cpu)) {
+        return;
     }
+    if (fcfs_is_empty ((QUEUE *) this->queue)) {
+        return;
+    }
+    Process * orig;
+    execute (this->cpu, fcfs_dequeue ((QUEUE *) this->queue), &orig);
 }
 
 void fcfs_enqueue (void * arg, Process * process) {
@@ -59,6 +51,10 @@ void fcfs_enqueue (void * arg, Process * process) {
     NODE * node = (NODE *) malloc (sizeof (NODE));
     node->process = process;
     node->next = NULL;
-    queue->tail->next = node;
+    if (queue->head == NULL) {
+        queue->head = node;
+    } else {
+        queue->tail->next = node;
+    }
     queue->tail = node;
 }

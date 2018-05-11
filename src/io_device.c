@@ -1,24 +1,20 @@
 #include <stdlib.h>
 
 #include "io_device.h"
+#include "cpu_scheduler.h"
 
 #define QUEUE struct __io_queue
 #define NODE struct __io_queue_node
 
-#define RUNNING 1
-#define STOP 0
-
 void enqueue (QUEUE * queue, Process * p) {
     NODE * node = (NODE *) malloc (sizeof (NODE));
     node->process = p;
-    node->prev = NULL;
     node->next = NULL;
 
     if (queue->head == NULL) {
         queue->head = node;
         queue->tail = node;    
     } else {
-        node->prev = queue->tail;
         queue->tail->next = node;
         queue->tail = node;
     }
@@ -36,32 +32,22 @@ int is_queue_empth (QUEUE * queue) {
     return queue->head == NULL;
 }
 
-void * ioing (void * arg) {
-    IO_device * this = (IO_device *) arg;
-    int prev = -1;
-    Process * p = NULL;
-    while (this->state) {
-        while (prev == get_time (this->clk)) {
-            // no_op
-        }
-        prev = get_time (this->clk);
-        if (p == NULL && is_queue_empth (this->queue)) {
-            write (this->record, 0);
-            continue;
-        }
-        if (p == NULL) {
-            p = io_dequeue (this->queue);
-        }
-        write (this->record, p->pid);
-        if (io (p)) {
-            p = NULL;
-        }
+void ioing (IO_device * this) {
+    if (this->process == NULL && is_queue_empth (this->queue)) {
+        return;
+    }
+    if (this->process == NULL) {
+        this->process = io_dequeue (this->queue);
+    }
+    write (this->record, this->process->pid);
+    if (io (this->process)) {
+        new_process (this->cpu_scheduler, this->process);
+        this->process = NULL;
     }
 }
 
 IO_device * create_io_device (Clock * clk) {
     IO_device * io = (IO_device *) malloc (sizeof (IO_device));
-    io->state = STOP;
     io->clk = clk;
     io->record = create_record ("IO device execution log", 24);
     io->queue = (QUEUE *) malloc (sizeof (QUEUE));
@@ -69,30 +55,23 @@ IO_device * create_io_device (Clock * clk) {
     return io;
 }
 
+void delete_io_node (NODE * del) {
+    if (del->next != NULL) {
+        delete_io_node (del->next);
+    }
+    free (del);
+}
+
+void delete_io_queue (QUEUE * queue) {
+    if (queue->head != NULL) {
+        delete_io_node (queue->head);
+    }
+    free (queue);
+}
+
 void delete_io_device (IO_device * this) {
-    if (this->state) {
-        this->state = STOP;
-        pthread_join (this->tid, NULL);
-    }
-    free (this->queue);
+    delete_io_queue (this->queue);
     free (this);
-}
-
-void start_io_device (IO_device * this) {
-    if (this->state) {
-        return;
-    }
-    this->state = RUNNING;
-    pthread_t tid;
-    pthread_create (&tid, NULL, ioing, this);
-    this->tid = tid;
-}
-
-void stop_io_device (IO_device * this) {
-    if (this->state) {
-        this->state = STOP;
-        pthread_join (this->tid, NULL);
-    }
 }
 
 void io_request (IO_device * this, Process * p) {

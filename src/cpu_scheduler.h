@@ -1,21 +1,17 @@
 #ifndef __CPU_SCHEDULER_H
 #define __CPU_SCHEDULER_H
 
-#include <pthread.h>
-
 #include "clock.h"
 #include "process.h"
 #include "cpu.h"
 
 struct __cpu_scheduler {
     char * algo;
-    int state;
     Clock * clk;
     void * queue;
     CPU * cpu;
     void (* enqueue) (void * queue, Process * process);
-    void * (* scheduling) (void * arg);
-    pthread_t tid;
+    void (* scheduling) (struct __cpu_scheduler * cpu_scheduler);
 };
 
 // due to cyclic inclustion
@@ -47,13 +43,5 @@ void register_cpu (CPU_scheduler * cpu_scheduler, CPU * cpu);
 /* add new process to queue
  */
 void new_process (CPU_scheduler * cpu_scheduler, Process * process);
-
-/* start cpu scheduling
- */
-void start_cpu_scheduling (CPU_scheduler * cpu_scheduler);
-
-/* stop cpu scheduling
- */
-void stop_cpu_scheduling (CPU_scheduler * cpu_scheduler);
 
 #endif

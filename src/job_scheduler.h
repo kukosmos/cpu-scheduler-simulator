@@ -1,8 +1,6 @@
 #ifndef __JOB_SCHEDULER_H
 #define __JOB_SCHEDULER_H
 
-#include <pthread.h>
-
 #include "process.h"
 #include "clock.h"
 #include "cpu_scheduler.h"
@@ -26,7 +24,6 @@ struct __job_scheduler {
     JS_queue * queue;
     Clock * clk;
     CPU_scheduler * cs;
-    pthread_t tid;
 };
 
 typedef struct __job_scheduler Job_scheduler;
@@ -47,14 +44,10 @@ void js_register_cpu_scheduler (Job_scheduler * job_scheduler, CPU_scheduler * c
  */
 void create_processes (Job_scheduler * job_scheduler, int n);
 
-/* start job scheduling
+/* do scheduling for one clock cycle
+ * give cpu a process which its arrival time = clock time
  */
-void start_job_scheduling (Job_scheduler * job_scheduler);
-
-/* stop job scheduling
- * even if there are some processes left in queue
- */
-void stop_job_scheduling (Job_scheduler * job_scheduler);
+void job_scheduling (Job_scheduler * job_scheduler);
 
 /* restart job scheduling with existing process queue
  */
