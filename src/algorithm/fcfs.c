@@ -42,7 +42,8 @@ void fcfs_scheduling (CPU_scheduler * this) {
     if (fcfs_is_empty ((QUEUE *) this->queue)) {
         return;
     }
-    execute (this->cpu, fcfs_dequeue ((QUEUE *) this->queue), NULL);
+    Process * orig;
+    execute (this->cpu, fcfs_dequeue ((QUEUE *) this->queue), &orig);
 }
 
 void fcfs_enqueue (void * arg, Process * process) {
@@ -50,6 +51,10 @@ void fcfs_enqueue (void * arg, Process * process) {
     NODE * node = (NODE *) malloc (sizeof (NODE));
     node->process = process;
     node->next = NULL;
-    queue->tail->next = node;
+    if (queue->head == NULL) {
+        queue->head = node;
+    } else {
+        queue->tail->next = node;
+    }
     queue->tail = node;
 }
