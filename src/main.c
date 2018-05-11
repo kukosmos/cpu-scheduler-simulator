@@ -28,12 +28,6 @@ int main (int argc, char ** argv) {
     create_processes (js, 10);
     print_processes (js);
 
-    start_clock (clk);
-    start_job_scheduling (js);
-    start_cpu_scheduling (cs);
-    start_running (cpu);
-    start_io_device (io);
-
     while (!all_terminated (js)) {
         // no_op
     }

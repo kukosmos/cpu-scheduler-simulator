@@ -69,16 +69,20 @@ int js_queue_is_empty (QUEUE * queue) {
     return queue->head == NULL;
 }
 
+/* return arrival time of first process in queue
+ */
+int js_first_arrival_time (QUEUE * queue) {
+    return queue->head->p->arrival_time;
+}
+
 /* give cpu scheduler new process when clock = arrival time
  */
-void * scheduling (void * arg) {
-    Job_scheduler * this = (Job_scheduler *) arg;
-
-    while (!js_queue_is_empty (this->queue)) {
+void job_scheduling (Job_scheduler * this) {
+    if (js_queue_is_empty (this->queue)) {
+        return;
+    }
+    if (js_first_arrival_time (this->queue) == get_time (this->clk)) {
         Process * proc = js_dequeue (this->queue);
-        while (get_time (this->clk) != proc->arrival_time) {
-            // no_op    // busy waiting
-        }
         new_process (this->cs, proc);
     }
 }
@@ -113,18 +117,6 @@ void create_processes (Job_scheduler * this, int n) {
         js_enqueue (this->queue, p);
     }
     this->queue->head = this->queue->front;
-}
-
-void start_job_scheduling (Job_scheduler * this) {
-    pthread_t tid;
-
-    pthread_create (&tid, NULL, scheduling, this);
-    this->tid = tid;
-}
-
-void stop_job_scheduling (Job_scheduler * this) {
-    this->queue->head = NULL;
-    pthread_join (this->tid, NULL);
 }
 
 void reset_job_scheduling (Job_scheduler * this) {
