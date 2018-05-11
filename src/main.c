@@ -29,10 +29,17 @@ int main (int argc, char ** argv) {
     print_processes (js);
 
     while (!all_terminated (js)) {
-        // no_op
+        job_scheduling (js);
+        cs->scheduling (cs);
+        ioing (io);
+        running (cpu);
+        clocking (clk);
     }
 
+    printf("fcfs gantt chart\n");
     show_gantt_chart (cpu->record);
+    printf("io device gantt chart\n");
+    show_gantt_chart (io->record);
 
     delete_io_device (io);
     delete_cpu (cpu);
