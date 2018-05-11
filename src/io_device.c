@@ -34,6 +34,7 @@ int is_queue_empth (QUEUE * queue) {
 
 void ioing (IO_device * this) {
     if (this->process == NULL && is_queue_empth (this->queue)) {
+        write (this->record, 0);
         return;
     }
     if (this->process == NULL) {
