@@ -78,10 +78,7 @@ int js_first_arrival_time (QUEUE * queue) {
 /* give cpu scheduler new process when clock = arrival time
  */
 void job_scheduling (Job_scheduler * this) {
-    if (js_queue_is_empty (this->queue)) {
-        return;
-    }
-    if (js_first_arrival_time (this->queue) == get_time (this->clk)) {
+    while (!js_queue_is_empty (this->queue) && js_first_arrival_time (this->queue) == get_time (this->clk)) {
         Process * proc = js_dequeue (this->queue);
         new_process (this->cs, proc);
     }
