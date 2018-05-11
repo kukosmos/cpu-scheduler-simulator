@@ -78,3 +78,7 @@ void execute (CPU * this, Process * new, Process ** orig) {
     *orig = this->process;
     this->process = new;
 }
+
+void register_io_device (CPU * this, IO_device * io) {
+    this->io = io;
+}

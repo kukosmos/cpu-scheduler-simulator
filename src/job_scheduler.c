@@ -6,6 +6,8 @@
 #define NODE struct __js_queue_node
 #define QUEUE struct __js_queue
 
+#define TRUE 1
+#define FALSE 0
 
 void delete_nodes (NODE * node) {
     if (node->next != NULL) {
@@ -142,4 +144,17 @@ void print_processes (Job_scheduler * this) {
         printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
         t = t->next;
     }
+}
+
+int all_terminated (Job_scheduler * this) {
+    int result = TRUE;
+    NODE * n = this->queue->front;
+    while (n != NULL) {
+        if (n->p->cpu_remain_time != 0) {
+            result = FALSE;
+            break;
+        }
+        n = n->next;
+    }
+    return result;
 }

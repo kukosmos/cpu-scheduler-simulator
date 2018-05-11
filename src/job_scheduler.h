@@ -64,4 +64,8 @@ void reset_job_scheduling (Job_scheduler * job_scheduler);
  */
 void print_processes (Job_scheduler * job_scheduler);
 
+/* return TRUE if all processes' remain time is 0
+ */
+int all_terminated (Job_scheduler * job_scheduler);
+
 #endif

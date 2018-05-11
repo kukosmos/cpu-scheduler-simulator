@@ -45,4 +45,8 @@ int is_running (CPU * cpu);
  */
 void execute (CPU * cpu, Process * new, Process ** orig);
 
+/* register io device
+ */
+void register_io_device (CPU * cpu, IO_device * io_device);
+
 #endif
