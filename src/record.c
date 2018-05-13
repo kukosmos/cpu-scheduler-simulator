@@ -20,8 +20,8 @@ void delete_node (NODE * del) {
     free (del);
 }
 
-Record * create_record (char * description, int n) {
-    Record * r = (Record *) malloc (sizeof (Record));
+record_t * create_record (char * description, int n) {
+    record_t * r = (record_t *) malloc (sizeof (record_t));
     r->n = 0;
     r->desc = (char *) malloc (sizeof (char) * n);
     str_cp (description, r->desc);
@@ -30,14 +30,14 @@ Record * create_record (char * description, int n) {
     return r;
 }
 
-void delete_record (Record * this) {
+void delete_record (record_t * this) {
     if (this->head != NULL) {
         delete_node (this->head);
     }
     free (this);
 }
 
-void write (Record * this, int pid) {
+void write (record_t * this, int pid) {
     NODE * n = (NODE *) malloc (sizeof (NODE));
     n->pid = pid;
     n->prev = this->tail;
@@ -51,7 +51,7 @@ void write (Record * this, int pid) {
     this->tail = n;
 }
 
-void show_gantt_chart (Record * this) {
+void show_gantt_chart (record_t * this) {
     NODE * temp = this->head;
     int time = 0;
     printf("0----+----+----+----+----5----+----+----+----+----+\n");

@@ -5,26 +5,26 @@ struct __clock {
     unsigned int clk;
 };
 
-typedef struct __clock Clock;
+typedef struct __clock clk_t;
 
 /* create new clock
  */
-Clock * create_clock ();
+clk_t * create_clock ();
 
 /* return time
  */
-int get_time (Clock * clock);
+int get_time (clk_t * clock);
 
 /* reset clk
  */
-void init_clock (Clock * clock);
+void init_clock (clk_t * clock);
 
 /* delete clock
  */
-void delete_clock (Clock * clock);
+void delete_clock (clk_t * clock);
 
 /* increase clk by 1
  */
-void clocking (Clock * clock);
+void clocking (clk_t * clock);
 
 #endif

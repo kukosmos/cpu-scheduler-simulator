@@ -7,7 +7,7 @@
 #define NODE struct __fcfs_node
 
 struct __fcfs_node {
-    Process * process;
+    process_t * process;
     NODE * next;
 };
 
@@ -20,10 +20,10 @@ int fcfs_is_empty (QUEUE * queue) {
     return queue->head == NULL;
 }
 
-Process * fcfs_dequeue (QUEUE * queue) {
+process_t * fcfs_dequeue (QUEUE * queue) {
     NODE * del = queue->head;
     queue->head = del->next;
-    Process * p = del->process;
+    process_t * p = del->process;
     free (del);
     return p;
 }
@@ -35,18 +35,18 @@ void * create_fcfs_queue () {
     return (void *) queue;
 }
 
-void fcfs_scheduling (CPU_scheduler * this) {
+void fcfs_scheduling (cpu_scheduler_t * this) {
     if (is_running (this->cpu)) {
         return;
     }
     if (fcfs_is_empty ((QUEUE *) this->queue)) {
         return;
     }
-    Process * orig;
+    process_t * orig;
     execute (this->cpu, fcfs_dequeue ((QUEUE *) this->queue), &orig);
 }
 
-void fcfs_enqueue (void * arg, Process * process) {
+void fcfs_enqueue (void * arg, process_t * process) {
     QUEUE * queue = (QUEUE *) arg;
     NODE * node = (NODE *) malloc (sizeof (NODE));
     node->process = process;

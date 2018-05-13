@@ -7,17 +7,17 @@
 
 struct __cpu_scheduler {
     char * algo;
-    Clock * clk;
+    clk_t * clk;
     void * queue;
-    CPU * cpu;
-    void (* enqueue) (void * queue, Process * process);
+    cpu_t * cpu;
+    void (* enqueue) (void * queue, process_t * process);
     void (* scheduling) (struct __cpu_scheduler * cpu_scheduler);
 };
 
 // due to cyclic inclustion
 #ifndef __DEF_TYPE_CPU_SCHEDULER
 #define __DEF_TYPE_CPU_SCHEDULER
-typedef struct __cpu_scheduler CPU_scheduler;
+typedef struct __cpu_scheduler cpu_scheduler_t;
 #endif
 
 /* create cpu scheduler
@@ -30,18 +30,18 @@ typedef struct __cpu_scheduler CPU_scheduler;
  * 5. Preemptive Priority (p_priority)
  * 6. Round Robin (rr)
  */
-CPU_scheduler * create_cpu_scheduler (char * algorithm, Clock * clock);
+cpu_scheduler_t * create_cpu_scheduler (char * algorithm, clk_t * clock);
 
 /* delete cpu scheduler
  */
-void delete_cpu_scheduler (CPU_scheduler * cpu_scheduler);
+void delete_cpu_scheduler (cpu_scheduler_t * cpu_scheduler);
 
 /* register cpu
  */
-void register_cpu (CPU_scheduler * cpu_scheduler, CPU * cpu);
+void register_cpu (cpu_scheduler_t * cpu_scheduler, cpu_t * cpu);
 
 /* add new process to queue
  */
-void new_process (CPU_scheduler * cpu_scheduler, Process * process);
+void new_process (cpu_scheduler_t * cpu_scheduler, process_t * process);
 
 #endif

@@ -21,11 +21,11 @@
  */
 #define MAX_PRIORITY 5
 
-Process * create_process (unsigned int pid) {
+process_t * create_process (unsigned int pid) {
     if (pid == 0) {
         return NULL;
     }
-    Process * p = (Process *) malloc (sizeof (Process));
+    process_t * p = (process_t *) malloc (sizeof (process_t));
 
     p->pid = pid;
 
@@ -44,16 +44,16 @@ Process * create_process (unsigned int pid) {
     return p;
 }
 
-int run (Process * this) {
+int run (process_t * this) {
     this->cpu_remain_time = this->cpu_remain_time - 1;
     return this->cpu_remain_time == 0;
 }
 
-int io (Process * this) {
+int io (process_t * this) {
     this->io_remain_time = this->io_remain_time - 1;
     return this->io_remain_time == 0;
 }
 
-void delete_process (Process * this) {
+void delete_process (process_t * this) {
     free (this);
 }

@@ -10,10 +10,10 @@ void * create_fcfs_queue ();
 
 /* function for cpu scheduling
  */
-void fcfs_scheduling (CPU_scheduler * cpu_scheduler);
+void fcfs_scheduling (cpu_scheduler_t * cpu_scheduler);
 
 /* FCFS enqueue
  */
-void fcfs_enqueue (void * queue, Process * process);
+void fcfs_enqueue (void * queue, process_t * process);
 
 #endif
