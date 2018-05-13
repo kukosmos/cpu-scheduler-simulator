@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "process.h"
 #include "clock.h"
 #include "job_scheduler.h"
 #include "cpu_scheduler.h"
@@ -14,11 +13,11 @@ int main (int argc, char ** argv) {
 
     srand (time (NULL));
 
-    Clock * clk = create_clock ();
-    Job_scheduler * js = create_job_scheduler (clk);
-    CPU_scheduler * cs = create_cpu_scheduler ("fcfs", clk);
-    CPU * cpu = create_cpu (clk);
-    IO_device * io = create_io_device (clk);
+    clk_t * clk = create_clock ();
+    job_scheduler_t * js = create_job_scheduler (clk);
+    cpu_scheduler_t * cs = create_cpu_scheduler ("fcfs", clk);
+    cpu_t * cpu = create_cpu (clk);
+    io_device_t * io = create_io_device (clk);
     
     js_register_cpu_scheduler (js, cs);
     register_cpu (cs, cpu);

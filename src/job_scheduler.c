@@ -26,7 +26,7 @@ void delete_queue (QUEUE * queue) {
 /* insert new process node
  * order by arrival time of process
  */
-void js_enqueue (QUEUE * queue, Process * p) {
+void js_enqueue (QUEUE * queue, process_t * p) {
     NODE * node = (NODE *) malloc (sizeof (NODE));
     
     node->p = p;
@@ -54,7 +54,7 @@ void js_enqueue (QUEUE * queue, Process * p) {
 /* delete process from front
  * NOT free nodes
  */
-Process * js_dequeue (QUEUE * queue) {
+process_t * js_dequeue (QUEUE * queue) {
     NODE * t = queue->head;
     queue->head = queue->head->next;
 
@@ -77,15 +77,15 @@ int js_first_arrival_time (QUEUE * queue) {
 
 /* give cpu scheduler new process when clock = arrival time
  */
-void job_scheduling (Job_scheduler * this) {
+void job_scheduling (job_scheduler_t * this) {
     while (!js_queue_is_empty (this->queue) && js_first_arrival_time (this->queue) == get_time (this->clk)) {
-        Process * proc = js_dequeue (this->queue);
+        process_t * proc = js_dequeue (this->queue);
         new_process (this->cs, proc);
     }
 }
 
-Job_scheduler * create_job_scheduler (Clock * clk) {
-    Job_scheduler * js = (Job_scheduler *) malloc (sizeof (Job_scheduler));
+job_scheduler_t * create_job_scheduler (clk_t * clk) {
+    job_scheduler_t * js = (job_scheduler_t *) malloc (sizeof (job_scheduler_t));
     
     js->queue = (QUEUE *) malloc (sizeof (QUEUE));;
     js->clk = clk;
@@ -96,31 +96,31 @@ Job_scheduler * create_job_scheduler (Clock * clk) {
 
 /* free all the allocated memory
  */
-void delete_job_scheduler (Job_scheduler * this) {
+void delete_job_scheduler (job_scheduler_t * this) {
     delete_queue (this->queue);
     free (this);
 }
 
-void js_register_cpu_scheduler (Job_scheduler * this, CPU_scheduler * cs) {
+void js_register_cpu_scheduler (job_scheduler_t * this, cpu_scheduler_t * cs) {
     this->cs = cs;
 }
 
-void create_processes (Job_scheduler * this, int n) {
+void create_processes (job_scheduler_t * this, int n) {
     if (this->queue->front != NULL) {
         delete_nodes (this->queue->front);
     }
     for (int i = 1; i <= n; i++) {
-        Process * p = create_process (i);
+        process_t * p = create_process (i);
         js_enqueue (this->queue, p);
     }
     this->queue->head = this->queue->front;
 }
 
-void reset_job_scheduling (Job_scheduler * this) {
+void reset_job_scheduling (job_scheduler_t * this) {
     this->queue->head = this->queue->front;
 }
 
-void print_processes (Job_scheduler * this) {
+void print_processes (job_scheduler_t * this) {
     NODE * t = this->queue->front;
 
     printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
@@ -128,14 +128,14 @@ void print_processes (Job_scheduler * this) {
     printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
 
     while (t != NULL) {
-        Process * p = t->p;
+        process_t * p = t->p;
         printf("| %3u | %12u | %14u | %13u | %13u | %8u |\n", p->pid, p->arrival_time, p->cpu_burst_time, p->io_start_time, p->io_burst_time, p->priority);
         printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
         t = t->next;
     }
 }
 
-int all_terminated (Job_scheduler * this) {
+int all_terminated (job_scheduler_t * this) {
     int result = TRUE;
     NODE * n = this->queue->front;
     while (n != NULL) {
