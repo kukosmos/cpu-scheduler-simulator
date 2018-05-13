@@ -84,7 +84,7 @@ void job_scheduling (job_scheduler_t * this) {
     }
 }
 
-job_scheduler_t * create_job_scheduler (clock_t * clk) {
+job_scheduler_t * create_job_scheduler (clk_t * clk) {
     job_scheduler_t * js = (job_scheduler_t *) malloc (sizeof (job_scheduler_t));
     
     js->queue = (QUEUE *) malloc (sizeof (QUEUE));;

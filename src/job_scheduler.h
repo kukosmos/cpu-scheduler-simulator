@@ -20,7 +20,7 @@ struct __js_queue {
 
 struct __job_scheduler {
     struct __js_queue * queue;
-    clock_t * clk;
+    clk_t * clk;
     cpu_scheduler_t * cs;
 };
 
@@ -28,7 +28,7 @@ typedef struct __job_scheduler job_scheduler_t;
 
 /* create job scheduler
  */
-job_scheduler_t * create_job_scheduler (clock_t * clock);
+job_scheduler_t * create_job_scheduler (clk_t * clock);
 
 /* delete job scheduler
  */

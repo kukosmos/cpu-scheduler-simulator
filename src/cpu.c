@@ -2,7 +2,7 @@
 
 #include "cpu.h"
 
-cpu_t * create_cpu (clock_t * clk) {
+cpu_t * create_cpu (clk_t * clk) {
     cpu_t * cpu = (cpu_t *) malloc (sizeof (cpu_t));
     cpu->clk = clk;
     cpu->record = create_record ("CPU execution log", 18);

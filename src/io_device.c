@@ -47,7 +47,7 @@ void ioing (io_device_t * this) {
     }
 }
 
-io_device_t * create_io_device (clock_t * clk) {
+io_device_t * create_io_device (clk_t * clk) {
     io_device_t * io = (io_device_t *) malloc (sizeof (io_device_t));
     io->clk = clk;
     io->record = create_record ("IO device execution log", 24);

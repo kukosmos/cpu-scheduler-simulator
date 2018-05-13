@@ -25,7 +25,7 @@ struct __io_queue {
 
 struct __io_device {
     process_t * process;
-    clock_t * clk;
+    clk_t * clk;
     record_t * record;
     cpu_scheduler_t * cpu_scheduler;
     struct __io_queue * queue;
@@ -35,7 +35,7 @@ typedef struct __io_device io_device_t;
 
 /* create io device
  */
-io_device_t * create_io_device (clock_t * clock);
+io_device_t * create_io_device (clk_t * clock);
 
 /* delete io device
  */

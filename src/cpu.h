@@ -7,7 +7,7 @@
 #include "io_device.h"
 
 struct __cpu {
-    clock_t * clk;
+    clk_t * clk;
     record_t * record;
     io_device_t * io;
     process_t * process;
@@ -17,7 +17,7 @@ typedef struct __cpu cpu_t;
 
 /* create cpu
  */
-cpu_t * create_cpu (clock_t * clock);
+cpu_t * create_cpu (clk_t * clock);
 
 /* delete cpu
  */

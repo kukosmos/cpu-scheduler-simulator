@@ -13,7 +13,7 @@ int main (int argc, char ** argv) {
 
     srand (time (NULL));
 
-    clock_t * clk = create_clock ();
+    clk_t * clk = create_clock ();
     job_scheduler_t * js = create_job_scheduler (clk);
     cpu_scheduler_t * cs = create_cpu_scheduler ("fcfs", clk);
     cpu_t * cpu = create_cpu (clk);
