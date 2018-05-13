@@ -2,20 +2,20 @@
 
 #include "cpu.h"
 
-CPU * create_cpu (Clock * clk) {
-    CPU * cpu = (CPU *) malloc (sizeof (CPU));
+cpu_t * create_cpu (clock_t * clk) {
+    cpu_t * cpu = (cpu_t *) malloc (sizeof (cpu_t));
     cpu->clk = clk;
     cpu->record = create_record ("CPU execution log", 18);
     
     return cpu;
 }
 
-void delete_cpu (CPU * this) {
+void delete_cpu (cpu_t * this) {
     delete_record (this->record);
     free (this);
 }
 
-void running (CPU * this) {
+void running (cpu_t * this) {
     if (this->process == NULL) {
         write (this->record, 0);
         return;
@@ -31,15 +31,15 @@ void running (CPU * this) {
     }
 }
 
-int is_running (CPU * this) {
+int is_running (cpu_t * this) {
     return this->process != NULL;
 }
 
-void execute (CPU * this, Process * new, Process ** orig) {
+void execute (cpu_t * this, process_t * new, process_t ** orig) {
     *orig = this->process;
     this->process = new;
 }
 
-void register_io_device (CPU * this, IO_device * io) {
+void register_io_device (cpu_t * this, io_device_t * io) {
     this->io = io;
 }
