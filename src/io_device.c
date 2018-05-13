@@ -6,7 +6,7 @@
 #define QUEUE struct __io_queue
 #define NODE struct __io_queue_node
 
-void enqueue (QUEUE * queue, Process * p) {
+void enqueue (QUEUE * queue, process_t * p) {
     NODE * node = (NODE *) malloc (sizeof (NODE));
     node->process = p;
     node->next = NULL;
@@ -20,9 +20,9 @@ void enqueue (QUEUE * queue, Process * p) {
     }
 }
 
-Process * io_dequeue (QUEUE * queue) {
+process_t * io_dequeue (QUEUE * queue) {
     NODE * del = queue->head;
-    Process * p = del->process;
+    process_t * p = del->process;
     queue->head = queue->head->next;
     free (del);
     return p;
@@ -32,7 +32,7 @@ int is_queue_empth (QUEUE * queue) {
     return queue->head == NULL;
 }
 
-void ioing (IO_device * this) {
+void ioing (io_device_t * this) {
     if (this->process == NULL && is_queue_empth (this->queue)) {
         write (this->record, 0);
         return;
@@ -47,8 +47,8 @@ void ioing (IO_device * this) {
     }
 }
 
-IO_device * create_io_device (Clock * clk) {
-    IO_device * io = (IO_device *) malloc (sizeof (IO_device));
+io_device_t * create_io_device (clock_t * clk) {
+    io_device_t * io = (io_device_t *) malloc (sizeof (io_device_t));
     io->clk = clk;
     io->record = create_record ("IO device execution log", 24);
     io->queue = (QUEUE *) malloc (sizeof (QUEUE));
@@ -70,15 +70,15 @@ void delete_io_queue (QUEUE * queue) {
     free (queue);
 }
 
-void delete_io_device (IO_device * this) {
+void delete_io_device (io_device_t * this) {
     delete_io_queue (this->queue);
     free (this);
 }
 
-void io_request (IO_device * this, Process * p) {
+void io_request (io_device_t * this, process_t * p) {
     enqueue(this->queue, p);
 }
 
-void io_register_cpu_scheduler (IO_device * this, CPU_scheduler * cs) {
+void io_register_cpu_scheduler (io_device_t * this, cpu_scheduler_t * cs) {
     this->cpu_scheduler = cs;
 }
