@@ -31,8 +31,8 @@ int str_compare (char * orig, char * targ) {
     return result;
 }
 
-CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
-    CPU_scheduler * cs = (CPU_scheduler *) malloc (sizeof (CPU_scheduler));
+cpu_scheduler_t * create_cpu_scheduler (char * algo, clock_t * clock) {
+    cpu_scheduler_t * cs = (cpu_scheduler_t *) malloc (sizeof (cpu_scheduler_t));
 
     cs->algo = (char *) malloc (sizeof (algo));
     memcpy (cs->algo, algo, sizeof (algo));
@@ -50,15 +50,15 @@ CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
     return cs;
 }
 
-void delete_cpu_scheduler (CPU_scheduler * this) {
+void delete_cpu_scheduler (cpu_scheduler_t * this) {
     free (this->queue);
     free (this);
 }
 
-void register_cpu (CPU_scheduler * this, CPU * cpu) {
+void register_cpu (cpu_scheduler_t * this, cpu_t * cpu) {
     this->cpu = cpu;
 }
 
-void new_process (CPU_scheduler * this, Process * proc) {
+void new_process (cpu_scheduler_t * this, process_t * proc) {
     this->enqueue (this->queue, proc);
 }
