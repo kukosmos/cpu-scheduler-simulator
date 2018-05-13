@@ -14,22 +14,22 @@ struct __record {
     struct __record_node * tail;
 };
 
-typedef struct __record Record;
+typedef struct __record record_t;
 
 /* create record
  */
-Record * create_record (char * description, int n);
+record_t * create_record (char * description, int n);
 
 /* delete record
  */
-void delete_record (Record * record);
+void delete_record (record_t * record);
 
 /* write pid to and of list
  */
-void write (Record * record, int pid);
+void write (record_t * record, int pid);
 
 /* 
  */
-void show_gantt_chart (Record * record);
+void show_gantt_chart (record_t * record);
 
 #endif
