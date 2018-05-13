@@ -8,7 +8,7 @@
  */
 void * create_fcfs_queue ();
 
-/* pthread function for cpu scheduler
+/* function for cpu scheduler
  */
 void fcfs_scheduling (CPU_scheduler * cpu_scheduler);
 
