@@ -64,9 +64,12 @@ void show_gantt_chart (record_t * this) {
             printf ("0----+----+----+----+----5----+----+----+----+----+\n");
         }
     }
-    printf ("|\n");
-    for (int i = 0; i < time % 10; i++) {
-        printf ("+----");
-    } 
-    printf ("+\n");
+    if (time % 10 != 0) {
+        printf ("|\n");
+        for (int i = 0; i < time % 10; i++) {
+            printf ("+----");
+        } 
+        printf ("+\n");
+    }
+
 }
