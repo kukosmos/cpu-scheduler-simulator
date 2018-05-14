@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "simulate.h"
 #include "clock.h"
 #include "job_scheduler.h"
 #include "cpu_scheduler.h"
@@ -27,13 +28,7 @@ int main (int argc, char ** argv) {
     create_processes (js, 10);
     print_processes (js);
 
-    while (!all_terminated (js)) {
-        job_scheduling (js);
-        cs->scheduling (cs);
-        ioing (io);
-        running (cpu);
-        clocking (clk);
-    }
+    start_simulate (clk, js, cs, cpu, io);
 
     printf("fcfs gantt chart\n");
     show_gantt_chart (cpu->record);
