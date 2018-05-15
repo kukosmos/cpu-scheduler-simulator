@@ -21,5 +21,5 @@ void np_sjf_scheduling (cpu_scheduler_t * this) {
 }
 
 void np_sjf_enqueue (void * queue, process_t * process) {
-    sjf_enqueue ((struct __sjf_queue *) queue, process);
+    sjf_enqueue ((QUEUE *) queue, process);
 }
