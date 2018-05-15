@@ -121,6 +121,7 @@ void reset_job_scheduling (job_scheduler_t * this) {
     NODE * t = this->queue->head;
     while (t != NULL) {
         t->p->cpu_remain_time = t->p->cpu_burst_time;
+        t->p->io_remain_time = t->p->io_burst_time;
         t = t->next;
     }
 }
