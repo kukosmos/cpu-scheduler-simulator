@@ -71,5 +71,10 @@ void show_gantt_chart (record_t * this) {
         } 
         printf ("+\n");
     }
+}
 
+void reset_record (record_t * this) {
+    delete_node (this->head);
+    this->head = NULL;
+    this->tail = NULL;
 }
