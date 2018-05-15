@@ -31,8 +31,8 @@ int str_compare (char * orig, char * targ) {
     return result;
 }
 
-CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
-    CPU_scheduler * cs = (CPU_scheduler *) malloc (sizeof (CPU_scheduler));
+cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock) {
+    cpu_scheduler_t * cs = (cpu_scheduler_t *) malloc (sizeof (cpu_scheduler_t));
 
     cs->algo = (char *) malloc (sizeof (algo));
     memcpy (cs->algo, algo, sizeof (algo));
@@ -42,6 +42,14 @@ CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
         cs->queue = create_fcfs_queue ();
         cs->enqueue = fcfs_enqueue;
         cs->scheduling = fcfs_scheduling;
+    } else if (str_compare ("np_sjf", algo)) {
+        cs->queue = create_np_sjf_queue ();
+        cs->enqueue = np_sjf_enqueue;
+        cs->scheduling = np_sjf_scheduling;    
+    } else if (str_compare ("p_sjf", algo)) {
+        cs->queue = create_p_sjf_queue ();
+        cs->enqueue = p_sjf_enqueue;
+        cs->scheduling = p_sjf_scheduling;
     } else {
         free (cs);
         return NULL;
@@ -50,15 +58,15 @@ CPU_scheduler * create_cpu_scheduler (char * algo, Clock * clock) {
     return cs;
 }
 
-void delete_cpu_scheduler (CPU_scheduler * this) {
+void delete_cpu_scheduler (cpu_scheduler_t * this) {
     free (this->queue);
     free (this);
 }
 
-void register_cpu (CPU_scheduler * this, CPU * cpu) {
+void register_cpu (cpu_scheduler_t * this, cpu_t * cpu) {
     this->cpu = cpu;
 }
 
-void new_process (CPU_scheduler * this, Process * proc) {
+void new_process (cpu_scheduler_t * this, process_t * proc) {
     this->enqueue (this->queue, proc);
 }

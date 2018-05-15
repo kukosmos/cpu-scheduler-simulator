@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "process.h"
+#include "simulate.h"
 #include "clock.h"
 #include "job_scheduler.h"
 #include "cpu_scheduler.h"
@@ -12,35 +12,53 @@
 int main (int argc, char ** argv) {
     printf("KOSMOS PROJECT\nCPU Scheduler Simulator\n");
 
+    // default setting
     srand (time (NULL));
 
-    Clock * clk = create_clock ();
-    Job_scheduler * js = create_job_scheduler (clk);
-    CPU_scheduler * cs = create_cpu_scheduler ("fcfs", clk);
-    CPU * cpu = create_cpu (clk);
-    IO_device * io = create_io_device (clk);
-    
-    js_register_cpu_scheduler (js, cs);
-    register_cpu (cs, cpu);
-    register_io_device (cpu, io);
-    io_register_cpu_scheduler (io, cs);
+    clk_t * clk = create_clock ();
+    job_scheduler_t * js = create_job_scheduler (clk);
+    cpu_t * cpu = create_cpu (clk);
+    io_device_t * io = create_io_device (clk);
     
     create_processes (js, 10);
     print_processes (js);
 
-    while (!all_terminated (js)) {
-        job_scheduling (js);
-        cs->scheduling (cs);
-        ioing (io);
-        running (cpu);
-        clocking (clk);
-    }
+    // FCFS
+    cpu_scheduler_t * cs = create_cpu_scheduler ("fcfs", clk);
+    start_simulate (clk, js, cs, cpu, io);
 
-    printf("fcfs gantt chart\n");
+    printf("FCFS gantt chart\n");
     show_gantt_chart (cpu->record);
-    printf("io device gantt chart\n");
+    printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
 
+    // Non-preemptive SJF
+    delete_cpu_scheduler (cs);
+    cs = create_cpu_scheduler ("np_sjf", clk);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf("Non-preemptive SJF gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
+    // Preemptive SJF
+    delete_cpu_scheduler (cs);
+    cs = create_cpu_scheduler ("p_sjf", clk);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf("Preemptive SJF gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
+    // free all allocated memory
     delete_io_device (io);
     delete_cpu (cpu);
     delete_cpu_scheduler (cs);
