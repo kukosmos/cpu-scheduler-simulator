@@ -3,14 +3,31 @@
 
 #include "../process.h"
 
-struct __sjf_tree_node {
-    Process * p;
-
-    struct __sjf_tree_node * parent;
-    struct __sjf_tree_node * left;
-    struct __sjf_tree_node * right;
+struct __sjf_node {
+    process_t * p;
+    struct __sjf_node * next;
 };
 
-typedef struct __sjf_tree_node sjf_node_t;
+struct __sjf_queue {
+    struct __sjf_node * head;
+};
+
+/* SJF queue is priority queue
+ * shorter cpu burst time, higher priority
+ */
+struct __sjf_queue * create_sjf_queue ();
+
+/* SJF enqueue
+ */
+void sjf_enqueue (struct __sjf_queue * queue, process_t * process);
+
+/* SJF dequeue
+ * return a process which has the shortest arrival time
+ */
+process_t * sjf_dequeue (struct __sjf_queue * queue);
+
+/* return TRUE if queue is empty
+ */
+int sjf_is_empty (struct __sjf_queue * queue);
 
 #endif
