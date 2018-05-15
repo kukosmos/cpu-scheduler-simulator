@@ -18,7 +18,7 @@ void sjf_enqueue (QUEUE * queue, process_t * process) {
 
     NODE * t = queue->head;
     NODE * bf = NULL;
-    while (t != NULL && t->p->arrival_time < process->arrival_time) {
+    while (t != NULL && t->p->cpu_burst_time <= process->cpu_burst_time) {
         bf = t;
         t = t->next;
     }
@@ -34,7 +34,7 @@ void sjf_enqueue (QUEUE * queue, process_t * process) {
 process_t * sjf_dequeue (QUEUE * queue) {
     NODE * del = queue->head;
     process_t * r = del->p;
-    queue->head = queue->head->next;
+    queue->head = del->next;
     free (del);
     return r;
 }
