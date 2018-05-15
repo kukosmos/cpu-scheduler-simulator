@@ -28,8 +28,13 @@ void delete_record (record_t * record);
  */
 void write (record_t * record, int pid);
 
-/* 
+/* print gantt_chart
  */
 void show_gantt_chart (record_t * record);
+
+/* reset record
+ * delete ALL nodes
+ */
+void reset_record (record_t * record);
 
 #endif

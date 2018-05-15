@@ -118,6 +118,11 @@ void create_processes (job_scheduler_t * this, int n) {
 
 void reset_job_scheduling (job_scheduler_t * this) {
     this->queue->head = this->queue->front;
+    NODE * t = this->queue->head;
+    while (t != NULL) {
+        t->p->cpu_remain_time = t->p->cpu_burst_time;
+        t = t->next;
+    }
 }
 
 void print_processes (job_scheduler_t * this) {
