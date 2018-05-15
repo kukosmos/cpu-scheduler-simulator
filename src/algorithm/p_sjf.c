@@ -13,9 +13,13 @@ void p_sjf_scheduling (cpu_scheduler_t * this) {
     if (sjf_is_empty ((QUEUE *) this->queue)) {
         return;
     }
+    if (is_running (this->cpu) && this->cpu->process->cpu_burst_time <= ((QUEUE *) this->queue)->head->p->cpu_burst_time) {
+        // preemtion condition check
+        return;
+    }
     process_t * orig;
     execute (this->cpu, sjf_dequeue ((QUEUE *) this->queue), &orig);
-    if (orig != NULL) {
+    if (orig != NULL) { // if preempted
         p_sjf_enqueue (this->queue, orig);
     }
 }
