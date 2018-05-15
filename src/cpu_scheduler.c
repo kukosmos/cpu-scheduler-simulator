@@ -46,6 +46,10 @@ cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock) {
         cs->queue = create_np_sjf_queue ();
         cs->enqueue = np_sjf_enqueue;
         cs->scheduling = np_sjf_scheduling;    
+    } else if (str_compare ("p_sjf", algo)) {
+        cs->queue = create_p_sjf_queue ();
+        cs->enqueue = p_sjf_enqueue;
+        cs->scheduling = p_sjf_scheduling;
     } else {
         free (cs);
         return NULL;
