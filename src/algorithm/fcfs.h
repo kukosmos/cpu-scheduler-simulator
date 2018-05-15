@@ -8,11 +8,11 @@
  */
 void * create_fcfs_queue ();
 
-/* pthread function for cpu scheduler
+/* function for cpu scheduling
  */
 void fcfs_scheduling (cpu_scheduler_t * cpu_scheduler);
 
-/* enqueue
+/* FCFS enqueue
  */
 void fcfs_enqueue (void * queue, process_t * process);
 

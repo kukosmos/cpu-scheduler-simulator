@@ -20,19 +20,27 @@ int main (int argc, char ** argv) {
     cpu_t * cpu = create_cpu (clk);
     io_device_t * io = create_io_device (clk);
     
-    js_register_cpu_scheduler (js, cs);
-    register_cpu (cs, cpu);
-    register_io_device (cpu, io);
-    io_register_cpu_scheduler (io, cs);
-    
     create_processes (js, 10);
     print_processes (js);
 
     start_simulate (clk, js, cs, cpu, io);
 
-    printf("fcfs gantt chart\n");
+    printf("FCFS gantt chart\n");
     show_gantt_chart (cpu->record);
-    printf("io device gantt chart\n");
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
+    delete_cpu_scheduler (cs);
+
+    cs = create_cpu_scheduler ("np_sjf", clk);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf("Non-preemptive SJF gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
 
     delete_io_device (io);
