@@ -122,6 +122,7 @@ void reset_job_scheduling (job_scheduler_t * this) {
     while (t != NULL) {
         t->p->cpu_remain_time = t->p->cpu_burst_time;
         t->p->io_remain_time = t->p->io_burst_time;
+        t->p->termination_time = 0;
         t = t->next;
     }
 }
@@ -153,4 +154,12 @@ int all_terminated (job_scheduler_t * this) {
         n = n->next;
     }
     return result;
+}
+
+void get_processes (job_scheduler_t * this, process_t ** pl) {
+    NODE * t = this->queue->front;
+    while (t != NULL) {
+        pl [t->p->pid] = t->p;
+        t = t->next;
+    }
 }

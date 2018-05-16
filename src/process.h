@@ -7,6 +7,7 @@ struct __process {
     unsigned int arrival_time;
     unsigned int cpu_burst_time;
     unsigned int cpu_remain_time;
+    unsigned int termination_time;
 
     unsigned int io_start_time;
     unsigned int io_burst_time;
