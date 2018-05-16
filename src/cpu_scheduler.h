@@ -30,7 +30,7 @@ typedef struct __cpu_scheduler cpu_scheduler_t;
  * 5. Preemptive Priority (p_priority)
  * 6. Round Robin (rr)
  */
-cpu_scheduler_t * create_cpu_scheduler (char * algorithm, clk_t * clock);
+cpu_scheduler_t * create_cpu_scheduler (char * algorithm, clk_t * clock, ...);
 
 /* delete cpu scheduler
  */

@@ -1,5 +1,5 @@
 # compiled file
-run
+simulator
 *.o
 
 # build path

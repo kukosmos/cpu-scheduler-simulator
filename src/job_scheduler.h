@@ -59,4 +59,10 @@ void print_processes (job_scheduler_t * job_scheduler);
  */
 int all_terminated (job_scheduler_t * job_scheduler);
 
+/* return all processes
+ * order by pid
+ * process_list SHOULD have n + 1 space for n processes
+ */
+void get_processes (job_scheduler_t * job_scheduler, process_t ** process_list);
+
 #endif

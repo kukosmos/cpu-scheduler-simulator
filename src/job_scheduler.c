@@ -122,6 +122,7 @@ void reset_job_scheduling (job_scheduler_t * this) {
     while (t != NULL) {
         t->p->cpu_remain_time = t->p->cpu_burst_time;
         t->p->io_remain_time = t->p->io_burst_time;
+        t->p->termination_time = 0;
         t = t->next;
     }
 }
@@ -129,16 +130,17 @@ void reset_job_scheduling (job_scheduler_t * this) {
 void print_processes (job_scheduler_t * this) {
     NODE * t = this->queue->front;
 
-    printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
-    printf("| pid | arrival_time | cpu_burst_time | io_start_time | io_burst_time | priority |\n");
-    printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
+    printf ("+-----+--------------+----------------+---------------+---------------+----------+\n");
+    printf ("| pid | arrival_time | cpu_burst_time | io_start_time | io_burst_time | priority |\n");
+    printf ("+-----+--------------+----------------+---------------+---------------+----------+\n");
 
     while (t != NULL) {
         process_t * p = t->p;
-        printf("| %3u | %12u | %14u | %13u | %13u | %8u |\n", p->pid, p->arrival_time, p->cpu_burst_time, p->io_start_time, p->io_burst_time, p->priority);
-        printf("+-----+--------------+----------------+---------------+---------------+----------+\n");
+        printf ("| %3u | %12u | %14u | %13u | %13u | %8u |\n", p->pid, p->arrival_time, p->cpu_burst_time, p->io_start_time, p->io_burst_time, p->priority);
+        printf ("+-----+--------------+----------------+---------------+---------------+----------+\n");
         t = t->next;
     }
+    printf ("\n");
 }
 
 int all_terminated (job_scheduler_t * this) {
@@ -152,4 +154,12 @@ int all_terminated (job_scheduler_t * this) {
         n = n->next;
     }
     return result;
+}
+
+void get_processes (job_scheduler_t * this, process_t ** pl) {
+    NODE * t = this->queue->front;
+    while (t != NULL) {
+        pl [t->p->pid] = t->p;
+        t = t->next;
+    }
 }

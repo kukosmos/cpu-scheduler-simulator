@@ -1,9 +1,10 @@
-#include <stdlib.h>
-
+#include "../cpu.h"
 #include "sjf.h"
 #include "p_sjf.h"
 
 #define QUEUE struct __sjf_queue
+
+#define NULL 0
 
 void * create_p_sjf_queue () {
     return (void *) create_sjf_queue ();

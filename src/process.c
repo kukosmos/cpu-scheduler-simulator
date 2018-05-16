@@ -44,6 +44,7 @@ process_t * create_process (unsigned int pid) {
     p->arrival_time = rand() % MAX_ARRIVAL_TIME;
     p->cpu_burst_time = rand() % (MAX_CPU_BURST_TIME - MIN_CPU_BURST_TIME) + MIN_CPU_BURST_TIME;
     p->cpu_remain_time = p->cpu_burst_time;
+    p->termination_time = 0;
 
     if (p->cpu_burst_time > 1) {
         p->io_burst_time = rand() % (MAX_IO_RAND_TIME - MIN_IO_BURST_TIME) + MIN_IO_BURST_TIME;
