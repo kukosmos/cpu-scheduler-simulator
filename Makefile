@@ -1,6 +1,6 @@
 CC = @gcc
 CFLAGS = -g -w
-TARGET = run
+TARGET = simulator
 
 SRC = src
 ALGOSRC = $(SRC)/algorithm
@@ -16,6 +16,7 @@ all: echocompiling $(TARGET)
 	@mkdir -p $(BUILD)
 	@mv *.o $(BUILD)
 	@echo 'done'
+	@echo './simulator --help' for help
 
 echocompiling:
 	@echo 'compiling...'
