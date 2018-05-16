@@ -5,7 +5,7 @@
 #include "../process.h"
 
 /* non-preemptive priority queue is priority queue
- * smaller priority, higher priority
+ * smaller priority value, higher priority
  */
 void * create_np_priority_queue ();
 
