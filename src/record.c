@@ -74,7 +74,9 @@ void show_gantt_chart (record_t * this) {
 }
 
 void reset_record (record_t * this) {
-    delete_node (this->head);
+    if (this->head != NULL) {
+        delete_node (this->head);
+    }
     this->head = NULL;
     this->tail = NULL;
 }
