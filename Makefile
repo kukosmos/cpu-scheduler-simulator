@@ -24,10 +24,10 @@ $(TARGET): $(OBJS) $(ALGOS)
 	$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
 
 $(OBJS): %.o: $(SRC)/%.c
-	$(CC) -c $< -o $@
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(ALGOS): %.o: $(ALGOSRC)/%.c
-	$(CC) -c $< -o $@
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
 	@rm -f -r $(CLEAN)
