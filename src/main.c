@@ -19,6 +19,10 @@ int main (int argc, char ** argv) {
     option_t opt;
     parse_option (argc, argv, &opt);
 
+    if (opt.help) {
+        return 0;
+    }
+
     clk_t * clk = create_clock ();
     job_scheduler_t * js = create_job_scheduler (clk);
     cpu_t * cpu = create_cpu (clk);
