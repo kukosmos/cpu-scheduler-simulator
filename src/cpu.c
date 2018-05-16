@@ -22,6 +22,7 @@ void running (cpu_t * this) {
     }
     write (this->record, this->process->pid);
     if (run (this->process)) {
+        this->process->termination_time = get_time (this->clk);
         this->process = NULL;
         return;
     }
