@@ -1,5 +1,5 @@
-CC = gcc
-CFLAGS = -g
+CC = @gcc
+CFLAGS = -g -w
 TARGET = run
 
 SRC = src
@@ -12,9 +12,13 @@ CLEAN = *.o $(TARGET) $(BUILD)
 ALGOS = fcfs.o priority.o np_priority.o p_priority.o sjf.o np_sjf.o p_sjf.o rr.o
 OBJS = record.o process.o clock.o cpu.o io_device.o cpu_scheduler.o job_scheduler.o simulate.o
 
-all: $(TARGET)
-	mkdir -p $(BUILD)
-	mv *.o $(BUILD)
+all: echocompiling $(TARGET)
+	@mkdir -p $(BUILD)
+	@mv *.o $(BUILD)
+	@echo 'done'
+
+echocompiling:
+	@echo 'compiling...'
 
 $(TARGET): $(OBJS) $(ALGOS)
 	$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
@@ -26,4 +30,5 @@ $(ALGOS): %.o: $(ALGOSRC)/%.c
 	$(CC) -c $< -o $@
 
 clean:
-	rm -f -r $(CLEAN)
+	@rm -f -r $(CLEAN)
+	@echo 'removed'
