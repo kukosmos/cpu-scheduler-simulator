@@ -54,7 +54,7 @@ void rr_scheduling (cpu_scheduler_t * this) {
     if (orig != NULL) { // if preempted due to consuming all time quantum
         rr_enqueue (this->queue, orig);
     }
-    ((QUEUE *) this->queue)->remain = ((QUEUE *) this->queue)->time_quantum;    // reset remain time quantum
+    ((QUEUE *) this->queue)->remain = ((QUEUE *) this->queue)->time_quantum - 1;    // reset remain time quantum
 }
 
 void rr_enqueue (void * arg, process_t * process) {
