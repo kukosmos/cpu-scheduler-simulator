@@ -10,7 +10,7 @@ MAIN = $(SRC)/main.c
 CLEAN = *.o $(TARGET) $(BUILD)
 
 ALGOS = fcfs.o priority.o np_priority.o p_priority.o sjf.o np_sjf.o p_sjf.o rr.o
-OBJS = record.o process.o clock.o cpu.o io_device.o cpu_scheduler.o job_scheduler.o simulate.o
+OBJS = record.o process.o clock.o cpu.o io_device.o cpu_scheduler.o job_scheduler.o simulate.o option.o
 
 all: echocompiling $(TARGET)
 	@mkdir -p $(BUILD)
