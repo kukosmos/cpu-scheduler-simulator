@@ -71,6 +71,19 @@ int main (int argc, char ** argv) {
     printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
 
+    // preemptive priority
+    delete_cpu_scheduler (cs);
+    cs = create_cpu_scheduler ("p_priority", clk);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf ("Preemptive priority gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
     // free all allocated memory
     delete_io_device (io);
     delete_cpu (cpu);
