@@ -8,7 +8,7 @@ void * create_np_priority_queue () {
     return (void *) create_priority_queue ();
 }
 
-void np_priority_shceduling (cpu_scheduler_t * this) {
+void np_priority_scheduling (cpu_scheduler_t * this) {
     if (is_running (this->cpu)) {
         return;
     }
