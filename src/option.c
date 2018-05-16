@@ -31,10 +31,12 @@ void parse_option (int argc, char ** argv, option_t * opt) {
             opt->round_robin_time_quantum = atoi (argv [i]);
         } else if (strcmp ("-h", argv [i]) == 0 || strcmp ("--help", argv [i]) == 0) {
             printf ("Usage: simulator <options> <scheduler options>\n");
+            printf ("\n");
             printf ("options are:\n");
             printf ("   -h, --help      show the list of options\n");
             printf ("   -n <int>        number of processes to create (default : %d)\n", DEFAULT_NUM_PROCESS);
             printf ("   -tq <int>       size of time quantum of round-robin scheduler (default : %d)\n", DEFAULT_TIME_QUANTUM);
+            printf ("\n");
             printf ("with no scheduler options simulate all cpu scheduler algorithms\n");
             printf ("scheduler options are:\n");
             printf ("   --fcfs          simulate Fisrt Come First Served\n");
