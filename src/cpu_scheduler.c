@@ -51,7 +51,7 @@ cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock) {
         cs->enqueue = p_sjf_enqueue;
         cs->scheduling = p_sjf_scheduling;
     } else if (str_compare ("np_priority", algo)) {
-        cs->queue = create_np_priority_queue;
+        cs->queue = create_np_priority_queue ();
         cs->enqueue = np_priority_enqueue;
         cs->scheduling = np_priority_scheduling;
     } else {
