@@ -71,6 +71,7 @@ void show_gantt_chart (record_t * this) {
         } 
         printf ("+\n");
     }
+    printf ("\n");
 }
 
 void reset_record (record_t * this) {
