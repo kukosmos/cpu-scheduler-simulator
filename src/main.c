@@ -11,17 +11,18 @@
 #include "io_device.h"
 
 int main (int argc, char ** argv) {
-    printf ("KOSMOS PROJECT\nCPU Scheduler Simulator\n");
-
-    // default setting
-    srand (time (NULL));
-
     option_t opt;
     parse_option (argc, argv, &opt);
 
     if (opt.help) {
         return 0;
     }
+
+    printf ("KOSMOS PROJECT\nCPU Scheduler Simulator\n");
+
+    // default setting
+    srand (time (NULL));
+
 
     clk_t * clk = create_clock ();
     job_scheduler_t * js = create_job_scheduler (clk);
