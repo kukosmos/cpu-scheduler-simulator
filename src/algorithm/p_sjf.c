@@ -1,5 +1,4 @@
-#include <stdlib.h>
-
+#include "../cpu.h"
 #include "sjf.h"
 #include "p_sjf.h"
 
