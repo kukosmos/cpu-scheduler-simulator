@@ -2,6 +2,8 @@
 #define __OPTION_H
 
 struct __option {
+    int help;
+
     int test_fcfs;
     int test_np_sjf;
     int test_p_sjf;
