@@ -9,7 +9,7 @@ void start_simulate (clk_t * clk, job_scheduler_t * js, cpu_scheduler_t * cs, cp
     io_register_cpu_scheduler (io, cs);
     init_clock (clk);
 
-    printf("start simulating\n");
+    printf ("start simulating\n");
     while (!all_terminated (js)) {
         job_scheduling (js);
         cs->scheduling (cs);

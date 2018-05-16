@@ -36,9 +36,9 @@ int main (int argc, char ** argv) {
     // FCFS
     if (opt.test_fcfs) {
         cs = create_cpu_scheduler ("fcfs", clk);
+        printf ("FCFS\n");
         start_simulate (clk, js, cs, cpu, io);
-
-        printf ("FCFS gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
@@ -52,9 +52,9 @@ int main (int argc, char ** argv) {
         reset_record (cpu->record);
         reset_record (io->record);
         reset_job_scheduling (js);
+        printf ("Non-preemptive SJF\n");
         start_simulate (clk, js, cs, cpu, io);
-
-        printf ("Non-preemptive SJF gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
@@ -68,9 +68,10 @@ int main (int argc, char ** argv) {
         reset_record (cpu->record);
         reset_record (io->record);
         reset_job_scheduling (js);
+        printf ("Preemptive SJF\n");
         start_simulate (clk, js, cs, cpu, io);
 
-        printf ("Preemptive SJF gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
@@ -84,9 +85,9 @@ int main (int argc, char ** argv) {
         reset_record (cpu->record);
         reset_record (io->record);
         reset_job_scheduling (js);
+        printf ("Non-preemptive priority\n");
         start_simulate (clk, js, cs, cpu, io);
-
-        printf ("Non-preemptive priority gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
@@ -100,9 +101,9 @@ int main (int argc, char ** argv) {
         reset_record (cpu->record);
         reset_record (io->record);
         reset_job_scheduling (js);
+        printf ("Preemptive priority\n");
         start_simulate (clk, js, cs, cpu, io);
-
-        printf ("Preemptive priority gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
@@ -116,9 +117,9 @@ int main (int argc, char ** argv) {
         reset_record (cpu->record);
         reset_record (io->record);
         reset_job_scheduling (js);
+        printf ("Round-robin\n");
         start_simulate (clk, js, cs, cpu, io);
-
-        printf ("Round-robin gantt chart\n");
+        printf ("gantt chart\n");
         show_gantt_chart (cpu->record);
         // printf ("IO device gantt chart\n");
         // show_gantt_chart (io->record);
