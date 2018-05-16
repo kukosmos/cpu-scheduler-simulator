@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "cpu_scheduler.h"
 
@@ -31,7 +32,7 @@ int str_compare (char * orig, char * targ) {
     return result;
 }
 
-cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock) {
+cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock, ...) {
     cpu_scheduler_t * cs = (cpu_scheduler_t *) malloc (sizeof (cpu_scheduler_t));
 
     cs->algo = (char *) malloc (sizeof (algo));
@@ -58,6 +59,13 @@ cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock) {
         cs->queue = create_p_priority_queue ();
         cs->enqueue = p_priority_enqueue;
         cs->scheduling = p_priority_scheduling;
+    } else if (str_compare ("rr", algo)) {
+        va_list vl;
+        va_start (vl, 1);
+        cs->queue = create_rr_queue (va_arg (vl, int));
+        va_end (vl);
+        cs->enqueue = rr_enqueue;
+        cs->scheduling = rr_scheduling;
     } else {
         free (cs);
         return NULL;
