@@ -32,7 +32,7 @@ int main (int argc, char ** argv) {
     printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
 
-    // Non-preemptive SJF
+    // non-preemptive SJF
     delete_cpu_scheduler (cs);
     cs = create_cpu_scheduler ("np_sjf", clk);
     reset_record (cpu->record);
@@ -45,7 +45,7 @@ int main (int argc, char ** argv) {
     printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
 
-    // Preemptive SJF
+    // preemptive SJF
     delete_cpu_scheduler (cs);
     cs = create_cpu_scheduler ("p_sjf", clk);
     reset_record (cpu->record);
@@ -54,6 +54,19 @@ int main (int argc, char ** argv) {
     start_simulate (clk, js, cs, cpu, io);
 
     printf("Preemptive SJF gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
+    // non-preemptive priority
+    delete_cpu_scheduler (cs);
+    cs = create_cpu_scheduler ("np_priority", clk);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf ("Non-preemptive priority gantt chart\n");
     show_gantt_chart (cpu->record);
     printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
