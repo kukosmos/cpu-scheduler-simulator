@@ -122,7 +122,7 @@ void reset_job_scheduling (job_scheduler_t * this) {
     while (t != NULL) {
         t->p->cpu_remain_time = t->p->cpu_burst_time;
         t->p->io_remain_time = t->p->io_burst_time;
-        t->p->terminatio_time = 0;
+        t->p->termination_time = 0;
         t = t->next;
     }
 }
