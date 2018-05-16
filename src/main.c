@@ -15,12 +15,15 @@ int main (int argc, char ** argv) {
     // default setting
     srand (time (NULL));
 
+    int num_of_processes = 10;
+    int rr_time_quantum = 4;
+
     clk_t * clk = create_clock ();
     job_scheduler_t * js = create_job_scheduler (clk);
     cpu_t * cpu = create_cpu (clk);
     io_device_t * io = create_io_device (clk);
     
-    create_processes (js, 10);
+    create_processes (js, num_of_processes);
     print_processes (js);
 
     // FCFS
@@ -80,6 +83,19 @@ int main (int argc, char ** argv) {
     start_simulate (clk, js, cs, cpu, io);
 
     printf ("Preemptive priority gantt chart\n");
+    show_gantt_chart (cpu->record);
+    printf("IO device gantt chart\n");
+    show_gantt_chart (io->record);
+
+    // round robin
+    delete_cpu_scheduler (cs);
+    cs = create_cpu_scheduler ("rr", clk, rr_time_quantum);
+    reset_record (cpu->record);
+    reset_record (io->record);
+    reset_job_scheduling (js);
+    start_simulate (clk, js, cs, cpu, io);
+
+    printf ("Round-robin gantt chart\n");
     show_gantt_chart (cpu->record);
     printf("IO device gantt chart\n");
     show_gantt_chart (io->record);
