@@ -10,6 +10,7 @@
 #include "algorithm/np_priority.h"
 #include "algorithm/p_priority.h"
 #include "algorithm/rr.h"
+#include "algorithm/np_srtf.h"
 #include "algorithm/p_srtf.h"
 
 cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock, ...) {
@@ -47,8 +48,9 @@ cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock, ...) {
         cs->enqueue = rr_enqueue;
         cs->scheduling = rr_scheduling;
     } else if (strcmp ("np_srtf", algo) == 0) {
-        
-        return NULL;
+        cs->queue = create_np_srtf_queue ();
+        cs->enqueue = np_srtf_enqueue;
+        cs->scheduling = np_srtf_scheduling;
     } else if (strcmp ("p_srtf", algo) == 0) {
         cs->queue = create_p_srtf_queue ();
         cs->enqueue = p_srtf_enqueue;
