@@ -20,7 +20,7 @@ void p_srtf_scheduling (cpu_scheduler_t * this) {
     }
     process_t * orig;
     execute (this->cpu, sjf_dequeue ((QUEUE *) this->queue), &orig);
-    if (orig != NULL) {
+    if (orig != NULL) { // if preempted
         p_srtf_enqueue (this->queue, orig);
     }
 }
