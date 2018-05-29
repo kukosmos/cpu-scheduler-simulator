@@ -19,6 +19,8 @@ void parse_option (int argc, char ** argv, option_t * opt) {
     opt->test_np_priority = FALSE;
     opt->test_p_priority = FALSE;
     opt->test_rr = FALSE;
+    opt->test_np_srtf = FALSE;
+    opt->test_p_srtf = FALSE;
     opt->num_of_processes = DEFAULT_NUM_PROCESS;
     opt->round_robin_time_quantum = DEFAULT_TIME_QUANTUM;
 
