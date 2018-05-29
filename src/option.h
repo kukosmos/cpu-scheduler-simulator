@@ -10,6 +10,8 @@ struct __option {
     int test_np_priority;
     int test_p_priority;
     int test_rr;
+    int test_np_srtf;
+    int test_p_srtf;
 
     int num_of_processes;
     int round_robin_time_quantum;

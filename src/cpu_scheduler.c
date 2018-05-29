@@ -10,27 +10,8 @@
 #include "algorithm/np_priority.h"
 #include "algorithm/p_priority.h"
 #include "algorithm/rr.h"
-
-#define TRUE 1
-#define FALSE 0
-
-/* return TRUE when orig and targ are equal
- */
-int str_compare (char * orig, char * targ) {
-    int result = TRUE;
-    while (*orig != 0) {
-        if (*orig != *targ) {
-            result = FALSE;
-            break;
-        }
-        orig++;
-        targ++;
-    }
-    if (*targ != 0) {
-        result = FALSE;
-    }
-    return result;
-}
+#include "algorithm/np_srtf.h"
+#include "algorithm/p_srtf.h"
 
 cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock, ...) {
     cpu_scheduler_t * cs = (cpu_scheduler_t *) malloc (sizeof (cpu_scheduler_t));
@@ -39,33 +20,41 @@ cpu_scheduler_t * create_cpu_scheduler (char * algo, clk_t * clock, ...) {
     memcpy (cs->algo, algo, sizeof (algo));
     cs->clk = clock;
 
-    if (str_compare ("fcfs", algo)) {
+    if (strcmp ("fcfs", algo) == 0) {
         cs->queue = create_fcfs_queue ();
         cs->enqueue = fcfs_enqueue;
         cs->scheduling = fcfs_scheduling;
-    } else if (str_compare ("np_sjf", algo)) {
+    } else if (strcmp ("np_sjf", algo) == 0) {
         cs->queue = create_np_sjf_queue ();
         cs->enqueue = np_sjf_enqueue;
         cs->scheduling = np_sjf_scheduling;    
-    } else if (str_compare ("p_sjf", algo)) {
+    } else if (strcmp ("p_sjf", algo) == 0) {
         cs->queue = create_p_sjf_queue ();
         cs->enqueue = p_sjf_enqueue;
         cs->scheduling = p_sjf_scheduling;
-    } else if (str_compare ("np_priority", algo)) {
+    } else if (strcmp ("np_priority", algo) == 0) {
         cs->queue = create_np_priority_queue ();
         cs->enqueue = np_priority_enqueue;
         cs->scheduling = np_priority_scheduling;
-    } else if (str_compare ("p_priority", algo)) {
+    } else if (strcmp ("p_priority", algo) == 0) {
         cs->queue = create_p_priority_queue ();
         cs->enqueue = p_priority_enqueue;
         cs->scheduling = p_priority_scheduling;
-    } else if (str_compare ("rr", algo)) {
+    } else if (strcmp ("rr", algo) == 0) {
         va_list vl;
         va_start (vl, 1);
         cs->queue = create_rr_queue (va_arg (vl, int));
         va_end (vl);
         cs->enqueue = rr_enqueue;
         cs->scheduling = rr_scheduling;
+    } else if (strcmp ("np_srtf", algo) == 0) {
+        cs->queue = create_np_srtf_queue ();
+        cs->enqueue = np_srtf_enqueue;
+        cs->scheduling = np_srtf_scheduling;
+    } else if (strcmp ("p_srtf", algo) == 0) {
+        cs->queue = create_p_srtf_queue ();
+        cs->enqueue = p_srtf_enqueue;
+        cs->scheduling = p_srtf_scheduling;
     } else {
         free (cs);
         return NULL;

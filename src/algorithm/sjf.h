@@ -22,7 +22,7 @@ struct __sjf_queue * create_sjf_queue ();
 void sjf_enqueue (struct __sjf_queue * queue, process_t * process);
 
 /* SJF dequeue
- * return a process which has the shortest arrival time
+ * return a process which has the shortest cpu burst time
  */
 process_t * sjf_dequeue (struct __sjf_queue * queue);
 
