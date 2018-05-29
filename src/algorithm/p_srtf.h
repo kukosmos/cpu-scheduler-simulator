@@ -4,7 +4,7 @@
 #include "../cpu_scheduler.h"
 #include "../process.h"
 
-/* preemptive SrTF queue is priority queue
+/* preemptive SRTF queue is priority queue
  * shorter cpu burst remain time, higher priority
  */
 void * create_p_srtf_queue ();
