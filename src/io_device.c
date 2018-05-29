@@ -28,12 +28,12 @@ process_t * io_dequeue (QUEUE * queue) {
     return p;
 }
 
-int is_queue_empth (QUEUE * queue) {
+int is_queue_empty (QUEUE * queue) {
     return queue->head == NULL;
 }
 
 void ioing (io_device_t * this) {
-    if (this->process == NULL && is_queue_empth (this->queue)) {
+    if (this->process == NULL && is_queue_empty (this->queue)) {
         write (this->record, 0);
         return;
     }
