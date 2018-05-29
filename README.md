@@ -12,6 +12,8 @@ The program does
 * Non-preemptive Priority ("np_priority")
 * Preemptive Priority ("p_priority")
 * Round-robin ("rr")
+* Non-preemptive Shortest Remain Time First ("np_srtf")
+* Preemptive Shortest Remain Time First ("p_srtf")
 
 ## Build
 ```
@@ -28,12 +30,14 @@ options are:
    -tq <int>       size of time quantum of round-robin scheduler (default : 4)
 
 scheduler options are:
-   --fcfs          simulate Fisrt Come First Served
-   --np-sjf        simulate Non-Preemptive Shortest Job First
-   --p-sjf         simulate Preemptive Shortest Job First
-   --np-priority   simulate Non-Preemptive Priority
-   --p-priority    simulate Preemptive Priority
-   --rr            simulate Round Robin
+   --fcfs           simulate Fisrt Come First Served
+   --np-sjf         simulate Non-Preemptive Shortest Job First
+   --p-sjf          simulate Preemptive Shortest Job First
+   --np-priority    simulate Non-Preemptive Priority
+   --p-priority     simulate Preemptive Priority
+   --rr             simulate Round Robin
+   --np-srtf        simulate Non-Preemptive Shortest Remain Time First
+   --p-srtf         simulate Preemptive Shortest Remain Time First
 ```
 For example, to test 5 process with FCFS and round-robin with time quantum of 2
 ```
