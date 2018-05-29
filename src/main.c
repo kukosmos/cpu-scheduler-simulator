@@ -206,6 +206,62 @@ int main (int argc, char ** argv) {
 
         delete_cpu_scheduler (cs);
     }
+
+    // non-preemptive SRTF
+    if (opt.test_np_srtf) {
+        cs = create_cpu_scheduler ("np_srtf", clk);
+        reset_record (cpu->record);
+        reset_record (io->record);
+        reset_job_scheduling (js);
+
+        printf ("Non-preemptive SRTF\n");
+        start_simulate (clk, js, cs, cpu, io);
+
+        average_turn_around_time = evaluate_turn_around_time (opt.num_of_processes, process_list, turn_around_time_list);
+        printf ("average turn around time = %.2f\n", average_turn_around_time);
+        printf ("turn around time\n");
+        print_list ("turn around time", opt.num_of_processes, turn_around_time_list);
+
+        average_waiting_time = evaluate_waiting_time (opt.num_of_processes, process_list, waiting_time_list);
+        printf ("average waiting time = %.2f\n", average_waiting_time);
+        printf ("waiting time\n");
+        print_list ("waiting time", opt.num_of_processes, waiting_time_list);
+
+        printf ("gantt chart\n");
+        show_gantt_chart (cpu->record);
+        // printf ("IO device gantt chart\n");
+        // show_gantt_chart (io->record);
+
+        delete_cpu_scheduler (cs);
+    }
+
+    // preemptive SRTF
+    if (opt.test_p_srtf) {
+        cs = create_cpu_scheduler ("p_srtf", clk);
+        reset_record (cpu->record);
+        reset_record (io->record);
+        reset_job_scheduling (js);
+
+        printf ("Preemptive SRTF\n");
+        start_simulate (clk, js, cs, cpu, io);
+
+        average_turn_around_time = evaluate_turn_around_time (opt.num_of_processes, process_list, turn_around_time_list);
+        printf ("average turn around time = %.2f\n", average_turn_around_time);
+        printf ("turn around time\n");
+        print_list ("turn around time", opt.num_of_processes, turn_around_time_list);
+
+        average_waiting_time = evaluate_waiting_time (opt.num_of_processes, process_list, waiting_time_list);
+        printf ("average waiting time = %.2f\n", average_waiting_time);
+        printf ("waiting time\n");
+        print_list ("waiting time", opt.num_of_processes, waiting_time_list);
+
+        printf ("gantt chart\n");
+        show_gantt_chart (cpu->record);
+        // printf ("IO device gantt chart\n");
+        // show_gantt_chart (io->record);
+
+        delete_cpu_scheduler (cs);
+    }
     
     // free all allocated memory
     delete_io_device (io);
