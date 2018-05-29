@@ -1,4 +1,4 @@
-CC = @gcc
+CC = gcc
 CFLAGS = -g -w
 TARGET = simulator
 
@@ -21,14 +21,16 @@ all: echocompiling $(TARGET)
 echocompiling:
 	@echo 'compiling...'
 
+debug: $(TARGET)
+
 $(TARGET): $(OBJS) $(ALGOS)
-	$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
+	@$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
 
 $(OBJS): %.o: $(SRC)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS)
 
 $(ALGOS): %.o: $(ALGOSRC)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
 	@rm -f -r $(CLEAN)
