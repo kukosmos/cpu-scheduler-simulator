@@ -1,6 +1,6 @@
 #include "../cpu.h"
 #include "srtf.h"
-#include "p_sjf.h"
+#include "p_srtf.h"
 
 #define QUEUE struct __srtf_queue
 
@@ -19,7 +19,7 @@ void p_srtf_scheduling (cpu_scheduler_t * this) {
         return;
     }
     process_t * orig;
-    execute (this->cpu, sjf_dequeue ((QUEUE *) this->queue), &orig);
+    execute (this->cpu, srtf_dequeue ((QUEUE *) this->queue), &orig);
     if (orig != NULL) { // if preempted
         p_srtf_enqueue (this->queue, orig);
     }
