@@ -15,11 +15,11 @@ OBJS = record.o process.o evaluate.o clock.o cpu.o io_device.o cpu_scheduler.o j
 all: echocompiling $(TARGET)
 	mkdir -p $(BUILD)
 	mv *.o $(BUILD)
-	echo 'done'
-	echo './simulator --help' for help
+	@echo 'done'
+	@echo './simulator --help' for help
 
 echocompiling:
-	echo 'compiling...'
+	@echo 'compiling...'
 
 debug: $(TARGET)
 
@@ -34,4 +34,4 @@ $(ALGOS): %.o: $(ALGOSRC)/%.c
 
 clean:
 	rm -f -r $(CLEAN)
-	echo 'removed'
+	@echo 'removed'
