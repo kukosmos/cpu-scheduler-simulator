@@ -41,8 +41,13 @@ void * create_rr_queue (int tq) {
 }
 
 void rr_scheduling (cpu_scheduler_t * this) {
-    if (rr_is_empty ((QUEUE *) this->queue)) {
+    if (rr_is_empty ((QUEUE *) this->queue) && !is_running (this->cpu)) {
+        // if queue is empty and cpu is idle
         return;
+    }
+    if (rr_is_empty ((QUEUE *) this->queue) && ((QUEUE *) this->queue)->remain > 0) {
+        // if queue is empty but process consumed all the time quantum
+        ((QUEUE *) this->queue)->remain = ((QUEUE *) this->queue)->time_quantum - 1;    // reset remain time quantum
     }
     if (is_running (this->cpu) && ((QUEUE *) this->queue)->remain > 0) {
         // if time previous process do not consum all time quantum
@@ -51,7 +56,8 @@ void rr_scheduling (cpu_scheduler_t * this) {
     }
     process_t * orig;
     execute (this->cpu, rr_dequeue ((QUEUE *) this->queue), &orig);
-    if (orig != NULL) { // if preempted due to consuming all time quantum
+    if (orig != NULL) {
+        // if preempted due to consuming all time quantum
         rr_enqueue (this->queue, orig);
     }
     ((QUEUE *) this->queue)->remain = ((QUEUE *) this->queue)->time_quantum - 1;    // reset remain time quantum
