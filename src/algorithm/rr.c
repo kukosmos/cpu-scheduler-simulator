@@ -45,7 +45,7 @@ void rr_scheduling (cpu_scheduler_t * this) {
         // if queue is empty and cpu is idle
         return;
     }
-    if (rr_is_empty ((QUEUE *) this->queue) && ((QUEUE *) this->queue)->remain > 0) {
+    if (rr_is_empty ((QUEUE *) this->queue) && ((QUEUE *) this->queue)->remain == 0) {
         // if queue is empty but process consumed all the time quantum
         ((QUEUE *) this->queue)->remain = ((QUEUE *) this->queue)->time_quantum - 1;    // reset remain time quantum
         return
