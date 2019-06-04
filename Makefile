@@ -13,25 +13,25 @@ ALGOS = fcfs.o priority.o np_priority.o p_priority.o sjf.o np_sjf.o p_sjf.o rr.o
 OBJS = record.o process.o evaluate.o clock.o cpu.o io_device.o cpu_scheduler.o job_scheduler.o simulate.o option.o
 
 all: echocompiling $(TARGET)
-	@mkdir -p $(BUILD)
-	@mv *.o $(BUILD)
-	@echo 'done'
-	@echo './simulator --help' for help
+	mkdir -p $(BUILD)
+	mv *.o $(BUILD)
+	echo 'done'
+	echo './simulator --help' for help
 
 echocompiling:
-	@echo 'compiling...'
+	echo 'compiling...'
 
 debug: $(TARGET)
 
 $(TARGET): $(OBJS) $(ALGOS)
-	@$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
+	$(CC) $(MAIN) -o $@ $^ $(CFLAGS)
 
 $(OBJS): %.o: $(SRC)/%.c
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 $(ALGOS): %.o: $(ALGOSRC)/%.c
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
-	@rm -f -r $(CLEAN)
-	@echo 'removed'
+	rm -f -r $(CLEAN)
+	echo 'removed'
